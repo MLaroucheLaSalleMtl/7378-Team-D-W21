@@ -4,6 +4,25 @@ using UnityEngine;
 
 public class RoomTest : MonoBehaviour
 {
+
+    public static GameObject AT;
+    public static GameObject AL;
+    public static GameObject AB;
+    public static GameObject AR;
+    public static GameObject BTB;
+    public static GameObject BLR;
+    public static GameObject BTL;
+    public static GameObject BTR;
+    public static GameObject BBL;
+    public static GameObject BBR;
+    public static GameObject CT;
+    public static GameObject CL;
+    public static GameObject CB;
+    public static GameObject CR;
+    public static GameObject D;
+
+    public GameObject[] Rooms = { AT, AL, AB, AR, BTB, BLR, BTL, BTR, BBL, BBR, CT, CL, CB, CR, D };
+
     public class Wall
     {
         int top;
@@ -24,263 +43,454 @@ public class RoomTest : MonoBehaviour
         public int Bot { get => bot; set => bot = value; }
         public int Right { get => right; set => right = value; }
     }
-    public class Point
+
+    class Program
     {
-        int x;
-        int y;
-        int z;
+        static public Wall at = new Wall(1, 2, 2, 2);
+        static public Wall al = new Wall(2, 1, 2, 2);
+        static public Wall ab = new Wall(2, 2, 1, 2);
+        static public Wall ar = new Wall(2, 2, 2, 1);
+        static public Wall btb = new Wall(1, 2, 1, 2);
+        static public Wall blr = new Wall(2, 1, 2, 1);
+        static public Wall btl = new Wall(1, 1, 2, 2);
+        static public Wall btr = new Wall(1, 2, 2, 1);
+        static public Wall bbl = new Wall(2, 1, 1, 2);
+        static public Wall bbr = new Wall(2, 2, 1, 1);
+        static public Wall ct = new Wall(2, 1, 1, 1);
+        static public Wall cl = new Wall(1, 2, 1, 1);
+        static public Wall cb = new Wall(1, 1, 2, 1);
+        static public Wall cr = new Wall(1, 1, 1, 2);
+        static public Wall d = new Wall(1, 1, 1, 1);
 
-        public Point(int x, int y, int z)
+        static int maxNum = 8;
+
+        public static Wall[] walls = { at, al, ab, ar, btb, blr, btl, btr, bbl, bbr, ct, cl, cb, cr, d };
+
+        public static int[,] points = new int[maxNum + 1, maxNum + 1];
+        public static int[,] lineX = new int[maxNum + 1, maxNum];
+        public static int[,] lineY = new int[maxNum, maxNum + 1];
+
+        static void FirstRoom()
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            int Px, Py;
+            int frNum = maxNum / 2;
+            int rdmNum;
+            points[frNum, frNum] = 1;
+            points[frNum + 1, frNum] = 1;
+            points[frNum + 1, frNum + 1] = 1;
+            points[frNum, frNum + 1] = 1;
+            rdmNum = Random.Range(0, 15);
+            lineX[frNum, frNum] = walls[rdmNum].Top;
+            lineY[frNum, frNum] = walls[rdmNum].Left;
+            lineX[frNum + 1, frNum] = walls[rdmNum].Bot;
+            lineY[frNum, frNum + 1] = walls[rdmNum].Right;
+            Px = frNum;
+            Py = frNum;
+
+            RoomMaker(Px, Py);
         }
 
-        public Point(int x, int y)
+        public static void TopRoom(int a, int b)
         {
-            this.x = x;
-            this.y = y;
-            z = 0;
-        }
-
-        public int X { get => x; set => x = value; }
-        public int Y { get => y; set => y = value; }
-        public int Z { get => z; set => z = value; }
-    }
-    public class Line
-    {
-        Point a;
-        Point b;
-        int check;
-
-        public Line(Point a, Point b, int check)
-        {
-            this.a = a;
-            this.b = b;
-            this.check = check;
-        }
-
-        public int Check { get => check; set => check = value; }
-        public Point A { get => a; set => a = value; }
-        public Point B { get => b; set => b = value; }
-    }
-    public class Square
-    {
-        Point tr;
-        Point tl;
-        Point bl;
-        Point br;
-
-        int p_top;
-        int p_left;
-        int p_bot;
-        int p_right;
-
-        public Square(Point tr, Point tl, Point bl, Point br, int p_top, int p_left, int p_bot, int p_right)
-        {
-            this.tr = tr;
-            this.tl = tl;
-            this.bl = bl;
-            this.br = br;
-            this.p_top = p_top;
-            this.p_left = p_left;
-            this.p_bot = p_bot;
-            this.p_right = p_right;
-        }
-
-        public int P_top { get => p_top; set => p_top = value; }
-        public int P_left { get => p_left; set => p_left = value; }
-        public int P_bot { get => p_bot; set => p_bot = value; }
-        public int P_right { get => p_right; set => p_right = value; }
-        public Point Tr { get => tr; set => tr = value; }
-        public Point Tl { get => tl; set => tl = value; }
-        public Point Bl { get => bl; set => bl = value; }
-        public Point Br { get => br; set => br = value; }
-    }
-
-    public GameObject AT;
-    public GameObject AL;
-    public GameObject AB;
-    public GameObject AR;
-    public GameObject BTB;
-    public GameObject BLR;
-    public GameObject BTL;
-    public GameObject BTR;
-    public GameObject BBL;
-    public GameObject BBR;
-    public GameObject CT;
-    public GameObject CL;
-    public GameObject CB;
-    public GameObject CR;
-    public GameObject D;
-
-    static public Wall at = new Wall(1, 0, 0, 0);
-    static public Wall al = new Wall(0, 1, 0, 0);
-    static public Wall ab = new Wall(0, 0, 1, 0);
-    static public Wall ar = new Wall(0, 0, 0, 1);
-    static public Wall btb = new Wall(1, 0, 1, 0);
-    static public Wall blr = new Wall(0, 1, 0, 1);
-    static public Wall btl = new Wall(1, 1, 0, 0);
-    static public Wall btr = new Wall(1, 0, 0, 1);
-    static public Wall bbl = new Wall(0, 1, 1, 0);
-    static public Wall bbr = new Wall(0, 0, 1, 1);
-    static public Wall ct = new Wall(0, 1, 1, 1);
-    static public Wall cl = new Wall(1, 0, 1, 1);
-    static public Wall cb = new Wall(1, 1, 0, 1);
-    static public Wall cr = new Wall(1, 1, 1, 0);
-    static public Wall d = new Wall(1, 1, 1, 1);
-
-    public Wall[] squares = { at, al, ab, ar, btb, blr, btl, btr, bbl, bbr, ct, cl, cb, cr, d };
-
-    static public Point X00Y00 = new Point(0, 0, 0); static public Point X00Y01 = new Point(0, 1, 0); static public Point X00Y02 = new Point(0, 2, 0); static public Point X00Y03 = new Point(0, 3, 0); static public Point X00Y04 = new Point(0, 4, 0); static public Point X00Y05 = new Point(0, 5, 0);
-    static public Point X01Y00 = new Point(1, 0, 0); static public Point X01Y01 = new Point(1, 1, 0); static public Point X01Y02 = new Point(1, 2, 0); static public Point X01Y03 = new Point(1, 3, 0); static public Point X01Y04 = new Point(1, 4, 0); static public Point X01Y05 = new Point(1, 5, 0);
-    static public Point X02Y00 = new Point(2, 0, 0); static public Point X02Y01 = new Point(2, 1, 0); static public Point X02Y02 = new Point(2, 2, 0); static public Point X02Y03 = new Point(2, 3, 0); static public Point X02Y04 = new Point(2, 4, 0); static public Point X02Y05 = new Point(2, 5, 0);
-    static public Point X03Y00 = new Point(3, 0, 0); static public Point X03Y01 = new Point(3, 1, 0); static public Point X03Y02 = new Point(3, 2, 0); static public Point X03Y03 = new Point(3, 3, 0); static public Point X03Y04 = new Point(3, 4, 0); static public Point X03Y05 = new Point(3, 5, 0);
-    static public Point X04Y00 = new Point(4, 0, 0); static public Point X04Y01 = new Point(4, 1, 0); static public Point X04Y02 = new Point(4, 2, 0); static public Point X04Y03 = new Point(4, 3, 0); static public Point X04Y04 = new Point(4, 4, 0); static public Point X04Y05 = new Point(4, 5, 0);
-    static public Point X05Y00 = new Point(5, 0, 0); static public Point X05Y01 = new Point(5, 1, 0); static public Point X05Y02 = new Point(5, 2, 0); static public Point X05Y03 = new Point(5, 3, 0); static public Point X05Y04 = new Point(5, 4, 0); static public Point X05Y05 = new Point(5, 5, 0);
-
-    public Point[] points = {
-        X00Y00, X00Y01, X00Y02, X00Y03, X00Y04, X00Y05,
-        X01Y00, X01Y01, X01Y02, X01Y03, X01Y04, X01Y05,
-        X02Y00, X02Y01, X02Y02, X02Y03, X02Y04, X02Y05,
-        X03Y00, X03Y01, X03Y02, X03Y03, X03Y04, X03Y05,
-        X04Y00, X04Y01, X04Y02, X04Y03, X04Y04, X04Y05,
-        X05Y00, X05Y01, X05Y02, X05Y03, X05Y04, X05Y05
-    };
-
-    static public Line a1 = new Line(X00Y00, X00Y01, 0); static public Line a2 = new Line(X00Y01, X00Y02, 0); static public Line a3 = new Line(X00Y02, X00Y03, 0); static public Line a4 = new Line(X00Y03, X00Y04, 0); static public Line a5 = new Line(X00Y04, X00Y05, 0);
-    static public Line b1 = new Line(X01Y00, X01Y01, 0); static public Line b2 = new Line(X01Y01, X01Y02, 0); static public Line b3 = new Line(X01Y02, X01Y03, 0); static public Line b4 = new Line(X01Y03, X01Y04, 0); static public Line b5 = new Line(X01Y04, X01Y05, 0);
-    static public Line c1 = new Line(X02Y00, X02Y01, 0); static public Line c2 = new Line(X02Y01, X02Y02, 0); static public Line c3 = new Line(X02Y02, X02Y03, 0); static public Line c4 = new Line(X02Y03, X02Y04, 0); static public Line c5 = new Line(X02Y04, X02Y05, 0);
-    static public Line d1 = new Line(X03Y00, X03Y01, 0); static public Line d2 = new Line(X03Y01, X03Y02, 0); static public Line d3 = new Line(X03Y02, X03Y03, 0); static public Line d4 = new Line(X03Y03, X03Y04, 0); static public Line d5 = new Line(X03Y04, X03Y05, 0);
-    static public Line e1 = new Line(X04Y00, X04Y01, 0); static public Line e2 = new Line(X04Y01, X04Y02, 0); static public Line e3 = new Line(X04Y02, X04Y03, 0); static public Line e4 = new Line(X04Y03, X04Y04, 0); static public Line e5 = new Line(X04Y04, X04Y05, 0);
-    static public Line f1 = new Line(X05Y00, X05Y01, 0); static public Line f2 = new Line(X05Y01, X05Y02, 0); static public Line f3 = new Line(X05Y02, X05Y03, 0); static public Line f4 = new Line(X05Y03, X05Y04, 0); static public Line f5 = new Line(X05Y04, X05Y05, 0);
-
-    static public Line A1 = new Line(X00Y00, X01Y00, 0); static public Line A2 = new Line(X00Y01, X02Y00, 0); static public Line A3 = new Line(X02Y00, X03Y00, 0); static public Line A4 = new Line(X03Y00, X04Y00, 0); static public Line A5 = new Line(X04Y00, X05Y00, 0);
-    static public Line B1 = new Line(X00Y01, X01Y01, 0); static public Line B2 = new Line(X01Y01, X02Y01, 0); static public Line B3 = new Line(X02Y01, X03Y01, 0); static public Line B4 = new Line(X03Y01, X04Y01, 0); static public Line B5 = new Line(X04Y01, X05Y01, 0);
-    static public Line C1 = new Line(X00Y02, X01Y02, 0); static public Line C2 = new Line(X01Y02, X02Y02, 0); static public Line C3 = new Line(X02Y02, X03Y02, 0); static public Line C4 = new Line(X03Y02, X04Y02, 0); static public Line C5 = new Line(X04Y02, X05Y02, 0);
-    static public Line D1 = new Line(X00Y03, X01Y03, 0); static public Line D2 = new Line(X01Y03, X02Y03, 0); static public Line D3 = new Line(X02Y03, X03Y03, 0); static public Line D4 = new Line(X03Y03, X04Y03, 0); static public Line D5 = new Line(X04Y03, X05Y03, 0);
-    static public Line E1 = new Line(X00Y04, X01Y04, 0); static public Line E2 = new Line(X01Y04, X02Y04, 0); static public Line E3 = new Line(X02Y04, X03Y04, 0); static public Line E4 = new Line(X03Y04, X04Y04, 0); static public Line E5 = new Line(X04Y04, X05Y04, 0);
-    static public Line F1 = new Line(X00Y05, X01Y05, 0); static public Line F2 = new Line(X01Y05, X02Y05, 0); static public Line F3 = new Line(X02Y05, X03Y05, 0); static public Line F4 = new Line(X03Y05, X04Y05, 0); static public Line F5 = new Line(X04Y05, X05Y05, 0);
-
-    public Line[] lines =
-    {
-        a1,a2,a3,a4,a5,
-        b1,b2,b3,b4,b5,
-        c1,c2,c3,c4,c5,
-        d1,d2,d3,d4,d5,
-        e1,e2,e3,e4,e5,
-        f1,f2,f3,f4,f5,
-        A1,A2,A3,A4,A5,
-        B1,B2,B3,B4,B5,
-        C1,C2,C3,C4,C5,
-        D1,D2,D3,D4,D5,
-        E1,E2,E3,E4,E5,
-        F1,F2,F3,F4,F5
-    };
-
-    int rd = Random.Range(0, 15);
-
-    public int Count(Wall a)
-    {
-        return a.Top + a.Left + a.Bot + a.Right;
-    }
-
-    public void sss(Square a)
-    {
-        if (a.P_top == 1)
-        {
-            
-        }
-        if (a.P_left == 1)
-        {
-
-        }
-        if (a.P_bot == 1)
-        {
-
-        }
-        if (a.P_right == 1)
-        {
-
-        }
-    }
-
-    public void SquareCheckTop(Square a)
-    {
-        Point BL = a.Tl;
-        Point BR = a.Tr;
-        Point TL = new Point(a.Tl.X, a.Tl.Y - 1);
-        Point TR = new Point(a.Tr.X, a.Tr.Y - 1);
-
-        if (PointCheck(points, TL) == 0 && PointCheck(points, TR) == 0)
-        {
-            
-        }
-
-        if (PointCheck(points, TL) ==1 && PointCheck(points, TR) == 1)
-        {
-            LineCheck(lines, TL, BL);
-            LineCheck(lines, TR, BR);
-            LineCheck(lines, TL, TR);
-        }
-
-        if (PointCheck(points, TL) == 1 && PointCheck(points, TR) == 0)
-        {
-            LineCheck(lines, TL, BL);
-        }
-
-        if (PointCheck(points, TL) == 0 && PointCheck(points, TR) == 1)
-        {
-            LineCheck(lines, TR, BR);
-        }
-    }
-
-    public int PointCheck(Point[] p, Point a)
-    {
-        for (int i = 0; i < p.Length; i++)
-        {
-            if (a.X == p[i].X)
+            if (lineX[a, b] == 1)
             {
-                if (a.Y == p[i].Y)
+                int rdmNum = 0;
+                int Px = a - 1;
+                int Py = b;
+
+                int top = lineX[Px, Py];
+                int bot = lineX[Px + 1, Py];
+                int left = lineY[Px, Py];
+                int right = lineY[Px, Py + 1];
+
+                if ((left == 0 || right == 0 || top == 0 || bot == 0) && (points[Px, Py] == 0 || points[Px + 1, Py] == 0 || points[Px, Py + 1] == 0 || points[Px + 1, Py + 1] == 0))
                 {
-                    return p[i].Z;
+
+                    if (left != 1 && right != 1 && top != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Bot != 1);
+                    }
+                    else if (left == 1 && right != 1 && top != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Bot != 1 && walls[rdmNum].Left != 1);
+                    }
+                    else if (left != 1 && right == 1 && top != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Bot != 1 && walls[rdmNum].Right != 1);
+                    }
+                    else if (left != 1 && right != 1 && top == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Bot != 1 && walls[rdmNum].Top != 1);
+                    }
+                    else if (left == 1 && right == 1 && top != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Bot != 1 && walls[rdmNum].Left != 1 && walls[rdmNum].Right != 1);
+                    }
+                    else if (left == 1 && right != 1 && top == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Bot != 1 && walls[rdmNum].Left != 1 && walls[rdmNum].Top != 1);
+                    }
+                    else if (left != 1 && right == 1 && top == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Bot != 1 && walls[rdmNum].Right != 1 && walls[rdmNum].Top != 1);
+                    }
+                    else if (left == 1 && right == 1 && top == 1)
+                    {
+                        rdmNum = 14;
+                    }
+
+                    points[Px, Py] = 1;
+                    points[Px + 1, Py] = 1;
+                    points[Px + 1, Py + 1] = 1;
+                    points[Px, Py + 1] = 1;
+
+                    lineX[Px, Py] = walls[rdmNum].Top;
+                    lineY[Px, Py] = walls[rdmNum].Left;
+                    lineX[Px + 1, Py] = walls[rdmNum].Bot;
+                    lineY[Px, Py + 1] = walls[rdmNum].Right;
+
+                    TopRoom(Px, Py);
+                    LeftRoom(Px, Py);
+                    RightRoom(Px, Py);
+
+
                 }
             }
         }
-        return 0;
-    }
 
-    public int LineCheck(Line[] a_line, Point x, Point y)
-    {
-        for (int i = 0; i < a_line.Length; i++) 
+        public static void BotRoom(int a, int b)
         {
-            if (x == a_line[i].A)
+            if (lineX[a + 1, b] == 1)
             {
-                if (y == a_line[i].B)
+                int rdmNum = 0;
+                int Px = a + 1;
+                int Py = b;
+
+                int top = lineX[Px, Py];
+                int bot = lineX[Px + 1, Py];
+                int left = lineY[Px, Py];
+                int right = lineY[Px, Py + 1];
+
+                if ((left == 0 || right == 0 || top == 0 || bot == 0) && (points[Px, Py] == 0 || points[Px + 1, Py] == 0 || points[Px, Py + 1] == 0 || points[Px + 1, Py + 1] == 0))
                 {
-                    return a_line[i].Check;
+                    if (left != 1 && right != 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Top != 1);
+                    }
+                    else if (left == 1 && right != 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Top != 1 && walls[rdmNum].Left != 1);
+                    }
+                    else if (left != 1 && right == 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Top != 1 && walls[rdmNum].Right != 1);
+                    }
+                    else if (left != 1 && right != 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Top != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (left == 1 && right == 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Top != 1 && walls[rdmNum].Left != 1 && walls[rdmNum].Right != 1);
+                    }
+                    else if (left == 1 && right != 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Top != 1 && walls[rdmNum].Left != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (left != 1 && right == 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Top != 1 && walls[rdmNum].Right != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (left == 1 && right == 1 && bot == 1)
+                    {
+                        rdmNum = 14;
+                    }
+
+                    points[Px, Py] = 1;
+                    points[Px + 1, Py] = 1;
+                    points[Px + 1, Py + 1] = 1;
+                    points[Px, Py + 1] = 1;
+
+                    lineX[Px, Py] = walls[rdmNum].Top;
+                    lineY[Px, Py] = walls[rdmNum].Left;
+                    lineX[Px + 1, Py] = walls[rdmNum].Bot;
+                    lineY[Px, Py + 1] = walls[rdmNum].Right;
+
+                    BotRoom(Px, Py);
+                    LeftRoom(Px, Py);
+                    RightRoom(Px, Py);
                 }
             }
         }
-        return 0;
-    }
 
-    public void Map()
-    {
-        Square[] sqar = new Square[10];
-
-        for (int i = 0; i < 15; i++)
+        public static void LeftRoom(int a, int b)
         {
-            if (i == 0)
+            if (lineY[a, b] == 1)
             {
-                int rd = Random.Range(0, 15);
-                X02Y03.Z = 1;
-                X02Y02.Z = 1;
-                X03Y02.Z = 1;
-                X03Y03.Z = 1;
-                sqar[0] = new Square(X02Y03, X02Y02, X03Y02, X03Y03, squares[rd].Top, squares[rd].Left, squares[rd].Bot, squares[rd].Right); 
+                int rdmNum = 0;
+                int Px = a;
+                int Py = b - 1;
+
+                int top = lineX[Px, Py];
+                int bot = lineX[Px + 1, Py];
+                int left = lineY[Px, Py];
+                int right = lineY[Px, Py + 1];
+
+                if ((left == 0 || right == 0 || top == 0 || bot == 0) && (points[Px, Py] == 0 || points[Px + 1, Py] == 0 || points[Px, Py + 1] == 0 || points[Px + 1, Py + 1] == 0))
+                {
+                    if (left != 1 && top != 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Right != 1);
+                    }
+                    else if (left == 1 && top != 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Right != 1 && walls[rdmNum].Left != 1);
+                    }
+                    else if (left != 1 && top == 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Right != 1 && walls[rdmNum].Top != 1);
+                    }
+                    else if (left != 1 && top != 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Right != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (left == 1 && top == 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Right != 1 && walls[rdmNum].Left != 1 && walls[rdmNum].Top != 1);
+                    }
+                    else if (left == 1 && top != 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Right != 1 && walls[rdmNum].Left != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (left != 1 && top == 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Right != 1 && walls[rdmNum].Top != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (left == 1 && top == 1 && bot == 1)
+                    {
+                        rdmNum = 14;
+                    }
+
+                    points[Px, Py] = 1;
+                    points[Px + 1, Py] = 1;
+                    points[Px + 1, Py + 1] = 1;
+                    points[Px, Py + 1] = 1;
+
+                    lineX[Px, Py] = walls[rdmNum].Top;
+                    lineY[Px, Py] = walls[rdmNum].Left;
+                    lineX[Px + 1, Py] = walls[rdmNum].Bot;
+                    lineY[Px, Py + 1] = walls[rdmNum].Right;
+
+                    LeftRoom(Px, Py);
+                    TopRoom(Px, Py);
+                    BotRoom(Px, Py);
+                }
             }
         }
+
+        public static void RightRoom(int a, int b)
+        {
+            if (lineY[a, b + 1] == 1)
+            {
+                int rdmNum = 0;
+                int Px = a;
+                int Py = b + 1;
+
+                int top = lineX[Px, Py];
+                int bot = lineX[Px + 1, Py];
+                int left = lineY[Px, Py];
+                int right = lineY[Px, Py + 1];
+
+                if ((left == 0 || right == 0 || top == 0 || bot == 0) && (points[Px, Py] == 0 || points[Px + 1, Py] == 0 || points[Px, Py + 1] == 0 || points[Px + 1, Py + 1] == 0))
+                {
+                    if (right != 1 && top != 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Left != 1);
+                    }
+                    else if (right == 1 && top != 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Left != 1 && walls[rdmNum].Right != 1);
+                    }
+                    else if (right != 1 && top == 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Left != 1 && walls[rdmNum].Top != 1);
+                    }
+                    else if (right != 1 && top != 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Left != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (right == 1 && top == 1 && bot != 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Left != 1 && walls[rdmNum].Right != 1 && walls[rdmNum].Top != 1);
+                    }
+                    else if (right == 1 && top != 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Left != 1 && walls[rdmNum].Right != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (right != 1 && top == 1 && bot == 1)
+                    {
+                        do
+                        {
+                            rdmNum = Random.Range(0, 15);
+                        } while (walls[rdmNum].Left != 1 && walls[rdmNum].Top != 1 && walls[rdmNum].Bot != 1);
+                    }
+                    else if (right == 1 && top == 1 && bot == 1)
+                    {
+                        rdmNum = 14;
+                    }
+
+                    points[Px, Py] = 1;
+                    points[Px + 1, Py] = 1;
+                    points[Px + 1, Py + 1] = 1;
+                    points[Px, Py + 1] = 1;
+
+                    lineX[Px, Py] = walls[rdmNum].Top;
+                    lineY[Px, Py] = walls[rdmNum].Left;
+                    lineX[Px + 1, Py] = walls[rdmNum].Bot;
+                    lineY[Px, Py + 1] = walls[rdmNum].Right;
+
+                    TopRoom(Px, Py);
+                    BotRoom(Px, Py);
+                    RightRoom(Px, Py);
+                }
+            }
+        }
+
+        public static void RoomMaker(int a, int b)
+        {
+            TopRoom(a, b);
+            BotRoom(a, b);
+            LeftRoom(a, b);
+            RightRoom(a, b);
+        }
+
+        public static void BorderSet(int[,] p, int[,] lx, int[,] ly)
+        {
+            for (int i = 0; i < p.GetLength(0); i++)
+            {
+                for (int j = 0; j < p.GetLength(1); j++)
+                {
+                    if ((i == 0 || j == 0) || (i == p.GetLength(0) - 1 || j == p.GetLength(1) - 1))
+                    {
+                        p[i, j] = 2;
+                    }
+                }
+            }
+
+            for (int i = 0; i < lx.GetLength(0); i++)
+            {
+                for (int j = 0; j < lx.GetLength(1); j++)
+                {
+                    if ((i == 0) || (i == lx.GetLength(0) - 1))
+                    {
+                        lx[i, j] = 2;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ly.GetLength(0); i++)
+            {
+                for (int j = 0; j < ly.GetLength(1); j++)
+                {
+                    if ((j == 0) || (j == ly.GetLength(1) - 1))
+                    {
+                        ly[i, j] = 2;
+                    }
+                }
+            }
+        }
+
+        static void MapCreater()
+        {
+            
+        }
+
+        static void Start()
+        {
+
+        }
+
     }
+
 }

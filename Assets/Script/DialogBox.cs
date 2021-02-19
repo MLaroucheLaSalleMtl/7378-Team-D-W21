@@ -8,6 +8,8 @@ public class DialogBox : MonoBehaviour {
 	public GameObject duiHuaPanel;
 	public Text duiTxt;
 
+	public Transform heroPos;
+	
 
 	//NPC
 	public string[] npcYan;
@@ -26,13 +28,13 @@ public class DialogBox : MonoBehaviour {
 		//ShowDuiHuaPanel();
 	}
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.F))
-        {
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.F) && Vector3.Distance(heroPos.position, this.transform.position) <= 1.5f)
+		{
 			ShowDuiHuaPanel();
-        }
-    } 
+		}
+	}
 
     public void ShowDuiHuaPanel()
 	{
@@ -43,6 +45,8 @@ public class DialogBox : MonoBehaviour {
 	public void HideDuiHuaPanel()
 	{
 		duiHuaPanel.SetActive(false);
+		heroyanIndex = 0;
+		npcYanIndex = 1;
 	}
 
 	public void ClickNextButton()
