@@ -17,7 +17,7 @@ public class LoadCtrl : MonoBehaviour {
 		ccSlider.value += Time.deltaTime;
 		if(ccSlider.value>=ccSlider.maxValue)
         {
-			Application.LoadLevel(scenceName);
+			//Application.LoadLevel(scenceName);
         }
 	}
 }
