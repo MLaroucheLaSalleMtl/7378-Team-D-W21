@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterList : MonoBehaviour
 {
+    public GameObject characterlist;
     public GameObject[] characters;
     private GameObject[] temp;
     Vector2 spawnSpace;
@@ -63,7 +64,8 @@ public class CharacterList : MonoBehaviour
     void SetCharacter()
     {
         spawnSpace = new Vector2(transform.position.x, transform.position.y);
-        Instantiate(characters[0], spawnSpace, Quaternion.identity);
+        GameObject character = Instantiate(characters[0], spawnSpace, Quaternion.identity);
+        character.transform.parent = characterlist.transform;
     }
 
     void Kill()
@@ -129,7 +131,12 @@ public class CharacterList : MonoBehaviour
         characterCount = characters.Length;
 
     }
-    
+
+    void Load()
+    {
+
+    }
+
     void EndGame()
     {
         Debug.Log("GG");

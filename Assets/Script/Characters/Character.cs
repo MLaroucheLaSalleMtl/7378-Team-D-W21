@@ -206,4 +206,5 @@ public class Character : MonoBehaviour
             healthBar.transform.localScale = new Vector3(0, healthBar.transform.localScale.y);
         }
     }
+
 }

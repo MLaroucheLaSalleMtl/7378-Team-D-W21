@@ -198,7 +198,7 @@ MonoBehaviour:
   characterName: Mushroom
   maxHealth: 100
   health: 100
-  attackDamage: 5
+  attackDamage: 55
   moveSpeed: 3
   fly: 0
   jump: 1

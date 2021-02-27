@@ -46,8 +46,8 @@ GameObject:
   - component: {fileID: 5101476543768821878}
   - component: {fileID: 7769475692732738266}
   m_Layer: 8
-  m_Name: Knight02 1
-  m_TagString: Untagged
+  m_Name: Knight02
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   enemyName: Knight02
   maxHealth: 100
   health: 100
-  attackDamage: 20
+  attackDamage: 200
   moveSpeed: 0
   hunt: 0
   fly: 0

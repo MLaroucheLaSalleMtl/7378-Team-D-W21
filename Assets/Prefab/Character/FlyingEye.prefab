@@ -198,7 +198,7 @@ MonoBehaviour:
   characterName: FlyingEye
   maxHealth: 100
   health: 100
-  attackDamage: 5
+  attackDamage: 25
   moveSpeed: 10
   fly: 1
   jump: 0
