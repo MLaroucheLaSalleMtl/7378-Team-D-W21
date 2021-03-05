@@ -24,7 +24,7 @@ public class CharacterControl : MonoBehaviour
         Movement();
         Jump();
         TouchGround();
-        Attack();
+       // Attack();
     }
      public void Movement()
     {
@@ -56,18 +56,20 @@ public class CharacterControl : MonoBehaviour
         }
     }
 
-    void Attack()
-    {
-        if (Input.GetButtonDown("Attack"))
-        {
-            anime.SetTrigger("Attack");
-        }
-    }
-    
+    //void Attack()
+    //{
+    //    if (Input.GetButtonDown("Attack"))
+    //    {
+    //        anime.SetTrigger("Attack");
+    //    }
+    //}
+
+   
+
     void TouchGround()
     {
         isGround = tGround.IsTouchingLayers(LayerMask.GetMask("Ground"));
-        Debug.Log(isGround);
+        //Debug.Log(isGround);
     }
 
  

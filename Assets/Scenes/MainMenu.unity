@@ -820,6 +820,7 @@ GameObject:
   - component: {fileID: 168535082}
   - component: {fileID: 168535081}
   - component: {fileID: 168535080}
+  - component: {fileID: 168535083}
   m_Layer: 5
   m_Name: start_btn
   m_TagString: Untagged
@@ -891,7 +892,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 168535081}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 168535083}
+        m_TargetAssemblyTypeName: StartButton, Assembly-CSharp
+        m_MethodName: LoadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &168535081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,6 +943,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168535078}
   m_CullTransparentMesh: 1
+--- !u!114 &168535083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168535078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b39655d943bbd54fa95a324604c3dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn_gameStart: {fileID: 168535080}
+  NextScene: GameBase
 --- !u!1 &184186069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,7 +1558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00024414062, y: 17.00003}
+  m_AnchoredPosition: {x: 0.00048828125, y: 17.00003}
   m_SizeDelta: {x: -1450.6177, y: -122.25812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &307443539
@@ -1820,7 +1847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00024414062, y: 17.00003}
+  m_AnchoredPosition: {x: 0.00048828125, y: 17.00003}
   m_SizeDelta: {x: -1450.6177, y: -122.25812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &425619141
@@ -2507,7 +2534,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 721706970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 014ca3b35953abc45a0199792e0e7ea8, type: 3}
+  m_Script: {fileID: 11500000, guid: 81c61e6b61ab5f949bdbf8dc20e22ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   btnStart: {fileID: 453887475}
@@ -4437,7 +4464,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1400941588}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c603cc1fb21f0444af50ab9a853cc66, type: 3}
+  m_Script: {fileID: 11500000, guid: 22a52097375ef9b4daed07f71f808f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   btnStart: {fileID: 453887475}
@@ -5841,7 +5868,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1846094947}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -5882,6 +5909,7 @@ GameObject:
   - component: {fileID: 1856973882}
   - component: {fileID: 1856973881}
   - component: {fileID: 1856973880}
+  - component: {fileID: 1856973883}
   m_Layer: 5
   m_Name: start_btn
   m_TagString: Untagged
@@ -5953,7 +5981,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1856973881}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1856973883}
+        m_TargetAssemblyTypeName: StartButton, Assembly-CSharp
+        m_MethodName: LoadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1856973881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5992,6 +6032,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856973878}
   m_CullTransparentMesh: 1
+--- !u!114 &1856973883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856973878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b39655d943bbd54fa95a324604c3dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn_gameStart: {fileID: 1856973880}
+  NextScene: GameBase
 --- !u!1 &1868842273
 GameObject:
   m_ObjectHideFlags: 0
@@ -6119,6 +6173,7 @@ GameObject:
   - component: {fileID: 1913052975}
   - component: {fileID: 1913052974}
   - component: {fileID: 1913052973}
+  - component: {fileID: 1913052976}
   m_Layer: 5
   m_Name: start_btn
   m_TagString: Untagged
@@ -6190,7 +6245,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1913052974}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1913052976}
+        m_TargetAssemblyTypeName: StartButton, Assembly-CSharp
+        m_MethodName: LoadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1913052974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6229,6 +6296,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913052971}
   m_CullTransparentMesh: 1
+--- !u!114 &1913052976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913052971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b39655d943bbd54fa95a324604c3dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn_gameStart: {fileID: 1913052973}
+  NextScene: GameBase
 --- !u!1 &1921445552
 GameObject:
   m_ObjectHideFlags: 0

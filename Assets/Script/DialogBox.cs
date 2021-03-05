@@ -9,6 +9,7 @@ public class DialogBox : MonoBehaviour {
 	public Text duiTxt;
 
 	public Transform heroPos;
+
 	
 
 	//NPC
@@ -30,9 +31,12 @@ public class DialogBox : MonoBehaviour {
 
 	private void Update()
 	{
+		
 		if (Input.GetKeyDown(KeyCode.F) && Vector3.Distance(heroPos.position, this.transform.position) <= 1.5f)
 		{
+		
 			ShowDuiHuaPanel();
+
 		}
 	}
 
@@ -72,4 +76,20 @@ public class DialogBox : MonoBehaviour {
 			heroSay = true;
         }
 	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.gameObject.tag =="Player")
+        {
+			this.gameObject.transform.Find("F").GetComponent<SpriteRenderer>().enabled = true;
+        }
+	}
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			this.gameObject.transform.Find("F").GetComponent<SpriteRenderer>().enabled = false;
+		}
+	}
+	
 }

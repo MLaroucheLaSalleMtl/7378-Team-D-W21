@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CharacterList : MonoBehaviour
 {
+    private GameManager gm;//0305
     public GameObject characterlist;
     public GameObject[] characters;
     private GameObject[] temp;
     Vector2 spawnSpace;
+
+    public Text numberOfSoilders;
 
     int characterCount;
 
@@ -16,6 +21,7 @@ public class CharacterList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.instance;//0305
         SetCharacter();
         characterCount = characters.Length;
         temp = new GameObject[characters.Length - 1];
@@ -24,6 +30,7 @@ public class CharacterList : MonoBehaviour
         {
             charactersStatic[i] = characters[i];
         }
+        numberOfSoilders.text = characterCount + " soilder left";
     }
 
     // Update is called once per frame
@@ -47,6 +54,7 @@ public class CharacterList : MonoBehaviour
         {
             EndGame();
         }
+        numberOfSoilders.text = characterCount + " soilder left";
 
         //if (characterCount > characters.Length) 
         //{
@@ -58,13 +66,18 @@ public class CharacterList : MonoBehaviour
         //    Add();
         //}
 
-        
+
     }
 
     void SetCharacter()
     {
         spawnSpace = new Vector2(transform.position.x, transform.position.y);
         GameObject character = Instantiate(characters[0], spawnSpace, Quaternion.identity);
+        if (gm.spawnPoint != null)//0305
+        {
+            character.transform.position = gm.spawnPoint.transform.position;
+        }//0305
+        //GameObject character = Instantiate(characters[0], gm.spawnPoint.transform.position, Quaternion.identity);//0305
         character.transform.parent = characterlist.transform;
     }
 
@@ -139,6 +152,6 @@ public class CharacterList : MonoBehaviour
 
     void EndGame()
     {
-        Debug.Log("GG");
+        SceneManager.LoadScene("GameBase");
     }
 }
