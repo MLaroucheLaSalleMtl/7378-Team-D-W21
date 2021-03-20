@@ -754,7 +754,7 @@ MonoBehaviour:
   health: 0
   attackDamage: 0
   moveSpeed: 0
-  fly: 0
+  fly: 1
   jump: 0
   hoverHight: 0
   attackSpeed: 0
