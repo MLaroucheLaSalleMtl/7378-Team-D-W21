@@ -40301,6 +40301,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &2243965043790881403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359554507715442558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38c677364cb78b4ebace63186a6c3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiPath: {fileID: 0}
 --- !u!1001 &1409407580045667770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43638,6 +43651,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba4f272f37271c4e86da70051bda82f, type: 3}
+--- !u!1 &1359554507715442558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6752388035083337656, guid: 4ba4f272f37271c4e86da70051bda82f, type: 3}
+  m_PrefabInstance: {fileID: 5722763114635954374}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1359554507715442552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6752388035083337662, guid: 4ba4f272f37271c4e86da70051bda82f, type: 3}

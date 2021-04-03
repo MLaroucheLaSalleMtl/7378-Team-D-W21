@@ -31,7 +31,12 @@ public class Enemy : MonoBehaviour
     public float attackRange;
     public LayerMask playerLayers;
     public float attackSpeed;
-    //private float attackCooldown = 0f;
+   
+   // private float attackCooldown = 0f;
+
+    //partsystem
+    public GameObject blood;
+    protected AudioSource deathAudio;
 
     void Start()
     {
@@ -56,7 +61,9 @@ public class Enemy : MonoBehaviour
         }
 
         animator.SetTrigger("GetHit");
-
+        
+      GameObject b= GameObject.Instantiate(blood, this.transform.position, Quaternion.identity);
+      
         HP();
 
     }
@@ -64,10 +71,12 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         animator.SetBool("IsDead",true);
+        deathAudio = GetComponent<AudioSource>();
     }
 
     private void AfterDeath()
     {
+        deathAudio.Play();
         Destroy(enemy.gameObject);
     }
 

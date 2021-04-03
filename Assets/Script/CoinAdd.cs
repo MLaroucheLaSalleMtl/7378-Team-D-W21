@@ -9,6 +9,7 @@ public class CoinAdd : MonoBehaviour
     {
         if(collision.gameObject.tag =="Player")
         {
+            SoundManager.PlaypickcoinClip();
             CoinManger.instance.AddCoin();
             Destroy(this.gameObject);
         }
